@@ -6,10 +6,16 @@ using UnityEngine;
 public class Movement : MonoBehaviour
 {
 
-    Rigidbody rigid_body;
-    AudioSource rocketnoise;
+    //Parameter variables
+    [SerializeField] AudioClip mainEngine;
     [SerializeField] float MainThrust=0f;
     [SerializeField] float rotationthrust=0f;
+
+    //Reference Cache
+    Rigidbody rigid_body;
+    AudioSource rocketnoise;
+
+    
 
 
     // Start is called before the first frame update
@@ -24,15 +30,13 @@ public class Movement : MonoBehaviour
     {
         ProcessThrust();
         ProcessRotation();
-        
-
     }
 
     public void ProcessThrust(){        
         if(Input.GetKey(KeyCode.W)){
             rigid_body.AddRelativeForce(Vector3.up*MainThrust*Time.deltaTime);
             if(!rocketnoise.isPlaying){
-                rocketnoise.Play();
+                rocketnoise.PlayOneShot(mainEngine);
             }
         }
         else{
