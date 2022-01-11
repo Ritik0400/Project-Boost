@@ -7,6 +7,7 @@ public class Movement : MonoBehaviour
 {
 
     Rigidbody rigid_body;
+    AudioSource rocketnoise;
     [SerializeField] float MainThrust=0f;
     [SerializeField] float rotationthrust=0f;
 
@@ -15,6 +16,7 @@ public class Movement : MonoBehaviour
     void Start()
     {
         rigid_body=GetComponent<Rigidbody>();
+        rocketnoise=GetComponent<AudioSource>();
     }
 
     // Update is called once per frame
@@ -29,6 +31,12 @@ public class Movement : MonoBehaviour
     public void ProcessThrust(){        
         if(Input.GetKey(KeyCode.W)){
             rigid_body.AddRelativeForce(Vector3.up*MainThrust*Time.deltaTime);
+            if(!rocketnoise.isPlaying){
+                rocketnoise.Play();
+            }
+        }
+        else{
+            rocketnoise.Pause();
         }
     }
 
